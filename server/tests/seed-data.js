@@ -5,30 +5,30 @@ const employees = [
   {
     username: 'admin.admin',
     password: 'Admin123!',
-    fullName: 'Justice Ngwenya',
+    fullName: 'Admin',
     role: 'admin',
     department: 'System Administration',
     employeeId: 'ADM001',
     email: 'admin.admin@bank.com'
   },
   {
-    username: 'justice.ngwenya',
+    username: 'Mpho.Magagula',
     password: 'Admin123!',
-    fullName: 'Justice Ngwenya',
+    fullName: 'Mpho Magagula',
     role: 'employee',
     department: 'Head Of IT',
     employeeId: 'ST10389916',
-    email: 'justice.ngwenya@bank.com'
+    email: 'mpho.magagula@bank.com'
   }
 ];
 
 const customers = [
   {
-    fullName: 'Mpho Magagula',
+    fullName: 'Justice Ngwenya',
     idNumber: '0001015800080',
     accountNumber: '8963214582',
-    username: 'mpho.magagula',
-    password: 'MphoM123!'
+    username: 'Justice.Ngwenya',
+    password: 'Admin123@'
   }
 ];
 

@@ -16,6 +16,9 @@ const LandingPage = () => {
           </div>
 
           <div className="nav-actions">
+             <Link to="/Register" className="nav-button primary">
+              Register
+            </Link>
             <Link to="/login" className="nav-button primary">
               Customer Login
             </Link>

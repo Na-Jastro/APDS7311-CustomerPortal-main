@@ -10,66 +10,57 @@ jobs:
 
       - run:
           name: Install root dependencies
-          command: |
-            echo "Installing root dependencies..."
-            npm install
+          command: npm install
 
       - run:
           name: Install server dependencies
-          command: |
-            echo "Installing server dependencies..."
-            cd server && npm install
+          command: cd server && npm install
 
       - run:
           name: Install client dependencies and build client
-          command: |
-            echo "Installing client dependencies and building client..."
-            cd client && npm install && npm run build
+          command: cd client && npm install && npm run build
 
       - run:
           name: Dependency Security Scan
           command: |
-            echo "Running dependency security scan..."
             npm audit --audit-level moderate || true
             cd server && npm audit --audit-level moderate || true
             cd ../client && npm audit --audit-level moderate || true
 
       - run:
           name: Server Syntax Validation
-          command: |
-            echo "Validating server syntax..."
-            cd server && node -c index.js
+          command: cd server && node -c index.js
 
       - run:
           name: Security Structure Validation
           command: |
-            echo "Validating security structure..."
             ls -la server/config/security.js
             ls -la server/ssl/
 
       - run:
           name: API Security Testing
           command: |
-            echo "Running API security checks..."
             grep -r "helmet" server/ || echo "Security middleware check completed"
 
       - run:
           name: Prepare Coverage Data
           command: |
-            echo "Preparing coverage data for SonarCloud..."
             mkdir -p coverage
             echo "" > coverage/lcov.info
 
-      # 🔥 FIXED SONAR INSTALL (LOCAL, NO PERMISSION ISSUE)
+      # 🔥 FIXED SONAR (no npm, no permission issues)
       - run:
-          name: Install Sonar Scanner (local)
-          command: npm install sonar-scanner
+          name: Install SonarScanner CLI
+          command: |
+            cd /tmp
+            curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+            unzip -q sonar-scanner.zip
+            mv sonar-scanner-5.0.1.3006-linux sonar-scanner
 
-      # 🔥 RUN SONAR USING NPX
       - run:
           name: Run SonarCloud Scan
           command: |
-            npx sonar-scanner \
+            /tmp/sonar-scanner/bin/sonar-scanner \
               -Dsonar.projectKey=YOUR_PROJECT_KEY \
               -Dsonar.organization=YOUR_ORG \
               -Dsonar.sources=. \

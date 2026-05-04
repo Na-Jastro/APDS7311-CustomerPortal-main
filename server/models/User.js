@@ -93,7 +93,7 @@ userSchema.virtual('isLocked').get(function() {
 
 // Pre-save middleware to hash password
 userSchema.pre('save', async function(next) {
-  if (!this.isModified('password')) return next();
+  if (!this.isModified('password')) return next(); 
   
   try {
     const salt = await bcrypt.genSalt(12);

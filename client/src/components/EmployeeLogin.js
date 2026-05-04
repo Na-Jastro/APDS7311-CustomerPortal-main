@@ -1,0 +1,149 @@
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate, Link } from 'react-router-dom';
+import './Auth.css';
+
+const EmployeeLogin = () => {
+  const [formData, setFormData] = useState({
+    username: '',
+    password: ''
+  }); const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  // Helper function to provide user-friendly error messages
+  const getUserFriendlyErrorMessage = (err) => {
+    if (!err.response) {
+      return 'Unable to connect to server. Please check your internet connection and contact IT support if needed.';
+    }
+
+    const status = err.response.status;
+    const serverMessage = err.response.data?.message || err.response.data?.msg || '';
+
+    switch (status) {
+      case 400:
+        if (serverMessage.includes('Invalid username format')) {
+          return 'Username format is invalid. Please use only letters, numbers, dots, and underscores (3-20 characters).';
+        }
+        if (serverMessage.includes('Invalid credentials')) {
+          return 'Username or password is incorrect. Please verify your employee credentials.';
+        }
+        return serverMessage || 'Invalid username or password. Please check your employee credentials.';
+
+      case 423:
+        return 'Your employee account has been temporarily locked due to multiple failed login attempts. Please wait 30 minutes or contact IT support for immediate assistance.';
+
+      case 429:
+        return 'Too many login attempts detected from this location. Please wait a few minutes before trying again for security purposes.';
+
+      case 500:
+        return 'Internal system error. Please contact IT support immediately if this problem persists.';
+
+      default:
+        return serverMessage || 'Employee authentication failed. Please verify your credentials and try again.';
+    }
+  };
+
+  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const validateInput = () => {
+    const usernameRegex = /^[a-zA-Z0-9_.]{3,20}$/;
+
+    if (!usernameRegex.test(formData.username)) {
+      setError('Username must be alphanumeric with underscores/dots (3-20 characters)');
+      return false;
+    }
+
+    if (formData.password.length < 8) {
+      setError('Password must be at least 8 characters');
+      return false;
+    }
+
+    return true;
+  };
+  const onSubmit = async e => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+
+    if (!validateInput()) {
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const res = await axios.post('/api/employee/login', formData);
+
+      // Store employee token and data
+      localStorage.setItem('employeeToken', res.data.token);
+      localStorage.setItem('employeeData', JSON.stringify(res.data.employee));
+
+      // Redirect to employee dashboard
+      navigate('/employee/dashboard');
+    } catch (err) {
+      const errorMessage = getUserFriendlyErrorMessage(err);
+      setError(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+  return (
+    <div className="auth-wrapper">
+      <div className="auth-glass-card">
+
+        <div className="auth-header-modern">
+          <h2>Employee Secure Access</h2>
+          <p>GlobalPay Internal Verification</p>
+        </div>
+
+        {error && <div className="alert error-alert">{error}</div>}
+
+        <form onSubmit={onSubmit} className="auth-form-modern">
+          <div className="input-group">
+            <label>Employee Username</label>
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={onChange}
+              placeholder="employee.username"
+              required
+              disabled={loading}
+            />
+            <small>Use your assigned corporate username</small>
+          </div>
+
+          <div className="input-group">
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={onChange}
+              placeholder="Enter your secure password"
+              required
+              disabled={loading}
+            />
+          </div>
+
+          <button type="submit" disabled={loading} className="primary-btn full-width">
+            {loading ? 'Authenticating...' : 'Access Employee Console'}
+          </button>
+        </form>
+
+        <div className="auth-footer-modern">
+          <Link to="/" className="auth-link-modern">Home</Link>
+
+          <div className="portal-switch-modern">
+            <p>
+              <Link to="/login" className="auth-link-modern"> Customer </Link>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
+
+};
+
+export default EmployeeLogin;

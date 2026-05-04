@@ -1,0 +1,35 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^1.9.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.6.0",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "cross-env HTTPS=true SSL_CRT_FILE=../server/ssl/server.crt SSL_KEY_FILE=../server/ssl/server.key react-scripts start",
+    "start:windows": "set HTTPS=true&& set SSL_CRT_FILE=../server/ssl/server.crt&& set SSL_KEY_FILE=../server/ssl/server.key&& react-scripts start",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "proxy": "https://localhost:5001",
+  "devDependencies": {
+    "cross-env": "^10.1.0"
+  }
+}

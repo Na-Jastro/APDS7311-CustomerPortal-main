@@ -4,6 +4,7 @@ jobs:
   build:
     docker:
       - image: 'cimg/node:18.20.4'
+
     steps:
       - checkout
 
@@ -59,16 +60,16 @@ jobs:
             mkdir -p coverage
             echo "" > coverage/lcov.info
 
-      # 🔥 INSTALL SONAR SCANNER
+      # 🔥 FIXED SONAR INSTALL (LOCAL, NO PERMISSION ISSUE)
       - run:
-          name: Install Sonar Scanner
-          command: npm install -g sonar-scanner
+          name: Install Sonar Scanner (local)
+          command: npm install sonar-scanner
 
-      # 🔥 RUN SONAR MANUALLY (REPLACES ORB)
+      # 🔥 RUN SONAR USING NPX
       - run:
           name: Run SonarCloud Scan
           command: |
-            sonar-scanner \
+            npx sonar-scanner \
               -Dsonar.projectKey=YOUR_PROJECT_KEY \
               -Dsonar.organization=YOUR_ORG \
               -Dsonar.sources=. \

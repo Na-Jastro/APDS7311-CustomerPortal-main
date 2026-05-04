@@ -99,7 +99,7 @@ const getSeedData = {
   // Get test subsets
   getTestEmployees: () => testEmployees,
   getTestCustomers: () => testCustomers,
-  getTestPayments: () => testPayments,
+  getTestPayments: () => testPayments, 
 
   // Get credentials for authentication testing
   getManagerCredentials: () => employees.find(emp => emp.role === 'manager'),

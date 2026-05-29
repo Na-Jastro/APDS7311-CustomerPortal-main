@@ -8,19 +8,16 @@ docker:
 steps:
   - checkout
 
-  # Install root dependencies
   - run:
       name: Install Root Dependencies
       command: npm install
 
-  # Install server dependencies
   - run:
       name: Install Server Dependencies
       command: |
         cd server
         npm install
 
-  # Install client dependencies and build
   - run:
       name: Install Client Dependencies and Build Client
       command: |
@@ -28,7 +25,6 @@ steps:
         npm install
         npm run build
 
-  # Dependency security scan
   - run:
       name: Dependency Security Scan
       command: |
@@ -40,34 +36,29 @@ steps:
         cd ../client
         npm audit --audit-level moderate || true
 
-  # Validate server syntax
   - run:
       name: Server Syntax Validation
       command: |
         cd server
         node -c index.js
 
-  # Security structure validation
   - run:
       name: Security Structure Validation
       command: |
         ls -la server/config/security.js
         ls -la server/ssl/
 
-  # API security middleware verification
   - run:
       name: API Security Testing
       command: |
         grep -r "helmet" server/ || echo "Helmet middleware verified"
 
-  # Prepare coverage data
   - run:
       name: Prepare Coverage Data
       command: |
         mkdir -p coverage
         touch coverage/lcov.info
 
-  # Install SonarScanner CLI
   - run:
       name: Install SonarScanner CLI
       command: |
@@ -80,7 +71,6 @@ steps:
 
         mv sonar-scanner-5.0.1.3006-linux sonar-scanner
 
-  # Run SonarCloud analysis
   - run:
       name: Run SonarCloud Scan
       command: |

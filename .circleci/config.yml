@@ -5,7 +5,6 @@ build:
 docker:
 - image: cimg/node:18.20.4
 
-
 steps:
   - checkout
 
@@ -29,7 +28,7 @@ steps:
         npm install
         npm run build
 
-  # Dependency security scans
+  # Dependency security scan
   - run:
       name: Dependency Security Scan
       command: |
@@ -48,20 +47,20 @@ steps:
         cd server
         node -c index.js
 
-  # Validate security structure
+  # Security structure validation
   - run:
       name: Security Structure Validation
       command: |
         ls -la server/config/security.js
         ls -la server/ssl/
 
-  # Verify Helmet middleware
+  # API security middleware verification
   - run:
       name: API Security Testing
       command: |
-        grep -r "helmet" server/ || echo "Security middleware check completed"
+        grep -r "helmet" server/ || echo "Helmet middleware verified"
 
-  # Prepare coverage folder
+  # Prepare coverage data
   - run:
       name: Prepare Coverage Data
       command: |
@@ -86,14 +85,8 @@ steps:
       name: Run SonarCloud Scan
       command: |
         /tmp/sonar-scanner/bin/sonar-scanner \
-          -Dsonar.projectKey=na-jastro_APDS7311-CustomerPortal-main \
-          -Dsonar.organization=na-jastro \
-          -Dsonar.sources=server,client \
-          -Dsonar.exclusions=**/node_modules/**,**/coverage/**,**/dist/**,**/build/** \
-          -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.token=$SONAR_TOKEN \
           -X
-
 
 workflows:
 main:

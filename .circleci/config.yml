@@ -77,4 +77,7 @@ steps:
         /tmp/sonar-scanner/bin/sonar-scanner \
           -Dsonar.token=$SONAR_TOKEN \
           -X
-workflows: main: jobs: - build
+workflows:
+main:
+jobs:
+- build

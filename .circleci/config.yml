@@ -1,86 +1,84 @@
 version: 2.1
 
 jobs:
-build:
-docker:
-- image: cimg/node:18.20.4
+  build:
+    docker:
+      - image: cimg/node:18.20.4
 
-```
-steps:
-  - checkout
+    steps:
+      - checkout
 
-  - run:
-      name: Install Root Dependencies
-      command: npm install
+      - run:
+          name: Install Root Dependencies
+          command: npm install
 
-  - run:
-      name: Install Server Dependencies
-      command: |
-        cd server
-        npm install
+      - run:
+          name: Install Server Dependencies
+          command: |
+            cd server
+            npm install
 
-  - run:
-      name: Install Client Dependencies and Build Client
-      command: |
-        cd client
-        npm install
-        npm run build
+      - run:
+          name: Install Client Dependencies and Build Client
+          command: |
+            cd client
+            npm install
+            npm run build
 
-  - run:
-      name: Dependency Security Scan
-      command: |
-        npm audit --audit-level moderate || true
+      - run:
+          name: Dependency Security Scan
+          command: |
+            npm audit --audit-level moderate || true
 
-        cd server
-        npm audit --audit-level moderate || true
+            cd server
+            npm audit --audit-level moderate || true
 
-        cd ../client
-        npm audit --audit-level moderate || true
+            cd ../client
+            npm audit --audit-level moderate || true
 
-  - run:
-      name: Server Syntax Validation
-      command: |
-        cd server
-        node -c index.js
+      - run:
+          name: Server Syntax Validation
+          command: |
+            cd server
+            node -c index.js
 
-  - run:
-      name: Security Structure Validation
-      command: |
-        ls -la server/config/security.js
-        ls -la server/ssl/
+      - run:
+          name: Security Structure Validation
+          command: |
+            ls -la server/config/security.js
+            ls -la server/ssl/
 
-  - run:
-      name: API Security Testing
-      command: |
-        grep -r "helmet" server/ || echo "Helmet middleware verified"
+      - run:
+          name: API Security Testing
+          command: |
+            grep -r "helmet" server/ || echo "Helmet middleware verified"
 
-  - run:
-      name: Prepare Coverage Data
-      command: |
-        mkdir -p coverage
-        touch coverage/lcov.info
+      - run:
+          name: Prepare Coverage Data
+          command: |
+            mkdir -p coverage
+            touch coverage/lcov.info
 
-  - run:
-      name: Install SonarScanner CLI
-      command: |
-        cd /tmp
+      - run:
+          name: Install SonarScanner CLI
+          command: |
+            cd /tmp
 
-        curl -sSLo sonar-scanner.zip \
-        https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+            curl -sSLo sonar-scanner.zip \
+            https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
 
-        unzip -q sonar-scanner.zip
+            unzip -q sonar-scanner.zip
 
-        mv sonar-scanner-5.0.1.3006-linux sonar-scanner
+            mv sonar-scanner-5.0.1.3006-linux sonar-scanner
 
-  - run:
-      name: Run SonarCloud Scan
-      command: |
-        /tmp/sonar-scanner/bin/sonar-scanner \
-          -Dsonar.token=$SONAR_TOKEN \
-          -X
-```
+      - run:
+          name: Run SonarCloud Scan
+          command: |
+            /tmp/sonar-scanner/bin/sonar-scanner \
+              -Dsonar.token=$SONAR_TOKEN \
+              -X
 
 workflows:
-main:
-jobs:
-- build
+  main:
+    jobs:
+      - build

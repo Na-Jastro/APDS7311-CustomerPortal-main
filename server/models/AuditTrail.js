@@ -153,7 +153,6 @@ auditTrailSchema.statics.getByAction = async function(action, startDate, endDate
     return [];
   }
 };
-
 // Static method to get security-related events
 auditTrailSchema.statics.getSecurityEvents = async function(severity = 'MEDIUM', limit = 50) {
   try {

@@ -5,7 +5,6 @@ build:
 docker:
 - image: cimg/node:18.20.4
 
-steps:
   - checkout
 
   - run:
@@ -77,6 +76,7 @@ steps:
         /tmp/sonar-scanner/bin/sonar-scanner \
           -Dsonar.token=$SONAR_TOKEN \
           -X
+
 workflows:
 main:
 jobs:

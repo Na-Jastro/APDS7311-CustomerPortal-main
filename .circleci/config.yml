@@ -61,8 +61,8 @@ jobs:
           name: Run SonarCloud Scan
           command: |
             /tmp/sonar-scanner/bin/sonar-scanner \
-              -Dsonar.projectKey=YOUR_PROJECT_KEY \
-              -Dsonar.organization=YOUR_ORG \
+              -Dsonar.projectKey=na-jastro \
+              -Dsonar.organization=Justice \
               -Dsonar.sources=. \
               -Dsonar.host.url=https://sonarcloud.io \
               -Dsonar.login=$SONAR_TOKEN

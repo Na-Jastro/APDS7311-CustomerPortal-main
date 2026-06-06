@@ -19,6 +19,69 @@ const employees = [
     department: 'Head Of IT',
     employeeId: 'ST10389916',
     email: 'mpho.magagula@bank.com'
+  },
+  {
+    username: 'Lerato.Mokoena',
+    password: 'Admin123!',
+    fullName: 'Lerato Mokoena',
+    role: 'employee',
+    department: 'Finance',
+    employeeId: 'EMP002',
+    email: 'lerato.mokoena@bank.com'
+  },
+  {
+    username: 'Sipho.Dlamini',
+    password: 'Admin123!',
+    fullName: 'Sipho Dlamini',
+    role: 'employee',
+    department: 'Customer Support',
+    employeeId: 'EMP003',
+    email: 'sipho.dlamini@bank.com'
+  },
+  {
+    username: 'Thabo.Nkosi',
+    password: 'Admin123!',
+    fullName: 'Thabo Nkosi',
+    role: 'manager',
+    department: 'Operations',
+    employeeId: 'EMP004',
+    email: 'thabo.nkosi@bank.com'
+  },
+  {
+    username: 'Ayanda.Khumalo',
+    password: 'Admin123!',
+    fullName: 'Ayanda Khumalo',
+    role: 'employee',
+    department: 'Cyber Security',
+    employeeId: 'EMP005',
+    email: 'ayanda.khumalo@bank.com'
+  },
+  {
+    username: 'Naledi.Mabena',
+    password: 'Admin123!',
+    fullName: 'Naledi Mabena',
+    role: 'employee',
+    department: 'Human Resources',
+    employeeId: 'EMP006',
+    email: 'naledi.mabena@bank.com'
+  },
+  {
+    username: 'Brian.Molefe',
+    password: 'Admin123!',
+    fullName: 'Brian Molefe',
+    role: 'employee',
+    department: 'Software Development',
+    employeeId: 'EMP007',
+    email: 'brian.molefe@bank.com'
+  },
+  {
+    username: 'Zanele.Ndlovu',
+    password: 'Admin123!',
+    fullName: 'Zanele Ndlovu',
+    role: 'manager',
+    department: 'Compliance',
+    employeeId: 'EMP008',
+    email: 'zanele.ndlovu@bank.com'
   }
 ];
 
@@ -29,9 +92,57 @@ const customers = [
     accountNumber: '8963214582',
     username: 'Justice.Ngwenya',
     password: 'Admin123@'
+  },
+  {
+    fullName: 'Precious Mthembu',
+    idNumber: '9203040675087',
+    accountNumber: '7854123690',
+    username: 'Precious.Mthembu',
+    password: 'Customer123@'
+  },
+  {
+    fullName: 'Sibusiso Zulu',
+    idNumber: '8709125432081',
+    accountNumber: '6321457890',
+    username: 'Sibusiso.Zulu',
+    password: 'Customer123@'
+  },
+  {
+    fullName: 'Nomsa Dube',
+    idNumber: '9507210987085',
+    accountNumber: '4521789630',
+    username: 'Nomsa.Dube',
+    password: 'Customer123@'
+  },
+  {
+    fullName: 'Kagiso Molefe',
+    idNumber: '9901154789082',
+    accountNumber: '3216549870',
+    username: 'Kagiso.Molefe',
+    password: 'Customer123@'
+  },
+  {
+    fullName: 'Lindokuhle Nene',
+    idNumber: '0102035678088',
+    accountNumber: '7412589631',
+    username: 'Lindokuhle.Nene',
+    password: 'Customer123@'
+  },
+  {
+    fullName: 'Amanda Cele',
+    idNumber: '9306112345089',
+    accountNumber: '8523697410',
+    username: 'Amanda.Cele',
+    password: 'Customer123@'
+  },
+  {
+    fullName: 'Tshepo Ramokgopa',
+    idNumber: '8808247890086',
+    accountNumber: '9632587410',
+    username: 'Tshepo.Ramokgopa',
+    password: 'Customer123@'
   }
 ];
-
 
 
 
